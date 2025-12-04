@@ -1,0 +1,76 @@
+/* GLOBAL FONT + SMOOTHING */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fafafa;
+    color: #333;
+}
+
+/* NAVBAR */
+.navbar {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.nav-link {
+    font-size: 1.05rem;
+    margin-left: 10px;
+}
+
+.nav-link:hover {
+    color: #007bff !important;
+}
+
+/* HERO TITLE */
+.hero-title {
+    color: #00A8FF;
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+/* GUIDELINES CARDS */
+.guideline-img {
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.guideline-card {
+    transition: 0.25s ease;
+}
+
+.guideline-card:hover {
+    transform: translateY(-5px);
+}
+
+/* COURSE CARDS */
+.course-card {
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* CHAT PLACEHOLDER */
+.chat-placeholder {
+    opacity: 0.5;
+    margin-top: 100px;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 60px;
+    padding: 40px 0;
+    background: #f0f0f0;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    margin: 5px 0;
+}
