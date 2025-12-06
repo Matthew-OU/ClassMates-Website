@@ -7,41 +7,201 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Chat-only styles -->
+    <style>
+        .chat-message-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+            .chat-message-row.incoming {
+                justify-content: flex-start;
+            }
+
+            .chat-message-row.outgoing {
+                justify-content: flex-end;
+            }
+
+        .chat-bubble {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 16px;
+            max-width: 75%;
+            font-size: 0.95rem;
+        }
+
+            .chat-bubble.incoming {
+                background-color: #e5e5ea;
+                color: #000000;
+            }
+
+            .chat-bubble.outgoing {
+                background-color: #007bff;
+                color: #ffffff;
+            }
+    </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="index.html">StudyBuddy</a>
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">StudyBuddy</a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navMenu">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
-                <li class="nav-item"><a class="nav-link" href="scheduling.html">Scheduling</a></li>
-                <li class="nav-item"><a class="nav-link active btn btn-dark text-white ms-2" href="chat.html">Chat</a></li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="scheduling.html">Scheduling</a></li>
+                    <li class="nav-item"><a class="nav-link" href="chat.html">Chat</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- CONTENT -->
-<div class="container text-center">
-    <div class="chat-placeholder">
-        <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" width="120">
-        <h3 class="mt-3">No Conversations Selected</h3>
-    </div>
-</div>
+    <!-- CONTENT -->
+    <div class="container mt-4">
 
-<!-- FOOTER -->
-<footer>
-    <p class="fw-bold">StudyBuddy © 2020–2025</p>
-    <p>Helping students connect, collaborate, and succeed.</p>
-</footer>
+        <div class="row">
+
+            <!-- STUDENT LIST -->
+            <div class="col-md-3">
+                <h5 class="fw-bold mb-3">Students</h5>
+
+                <ul class="list-group" id="studentList">
+                    <li class="list-group-item student-item" data-student="Matthew Nguyen">Matthew Nguyen</li>
+                    <li class="list-group-item student-item" data-student="Lucas West">Lucas West</li>
+                    <li class="list-group-item student-item" data-student="Rebeca Centeno">Rebeca Centeno</li>
+                    <li class="list-group-item student-item" data-student="Thea Massi">Thea Massi</li>
+                </ul>
+
+                <!-- Add Student -->
+                <div class="mt-3">
+                    <input type="text" id="newStudentName" class="form-control" placeholder="New student name">
+                    <button class="btn btn-primary w-100 mt-2" id="addStudentBtn">Add Student</button>
+                </div>
+            </div>
+
+            <!-- CHAT AREA -->
+            <div class="col-md-9 text-center">
+                <div id="chatArea" class="chat-placeholder">
+                    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" width="120">
+                    <h3 class="mt-3">No Conversations Selected</h3>
+                </div>
+
+                <!-- CHAT INPUT -->
+                <div class="mt-4">
+                    <div class="input-group mb-3">
+                        <input id="chatInput" type="text" class="form-control" placeholder="Type a message...">
+                        <button class="btn btn-success" id="sendChatBtn">Send</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="fw-bold">StudyBuddy © 2020–2025</p>
+        <p>Helping students connect, collaborate, and succeed.</p>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const studentList = document.getElementById("studentList");
+            const chatArea = document.getElementById("chatArea");
+            const chatInput = document.getElementById("chatInput");
+            const sendBtn = document.getElementById("sendChatBtn");
+            const addStudentBtn = document.getElementById("addStudentBtn");
+            const newStudentName = document.getElementById("newStudentName");
+
+            let currentStudent = null;
+
+            // Preloaded demo conversation
+            let conversations = {
+                "Lucas West": [
+                    "Lucas West: Hey! Are you ready to study for MIS 212?",
+                    "You: Test"
+                ]
+            };
+
+            function addMessageBubble(message) {
+                const isOutgoing = message.startsWith("You:");
+
+                const row = document.createElement("div");
+                row.classList.add("chat-message-row", isOutgoing ? "outgoing" : "incoming");
+
+                const bubble = document.createElement("div");
+                bubble.classList.add("chat-bubble", isOutgoing ? "outgoing" : "incoming");
+                bubble.textContent = message;
+
+                row.appendChild(bubble);
+                chatArea.appendChild(row);
+            }
+
+            function attachStudentClickEvents() {
+                const students = document.querySelectorAll(".student-item");
+
+                students.forEach(student => {
+                    student.onclick = function () {
+                        currentStudent = this.dataset.student;
+
+                        if (!conversations[currentStudent]) {
+                            conversations[currentStudent] = [];
+                        }
+
+                        chatArea.innerHTML = `<h4 class="fw-bold mb-3">Chatting with ${currentStudent}</h4>`;
+
+                        conversations[currentStudent].forEach(msg => addMessageBubble(msg));
+                    };
+                });
+            }
+
+            attachStudentClickEvents();
+
+            // Add new student
+            addStudentBtn.addEventListener("click", function () {
+                const name = newStudentName.value.trim();
+                if (name === "") return;
+
+                // Create new list item
+                const li = document.createElement("li");
+                li.classList.add("list-group-item", "student-item");
+                li.dataset.student = name;
+                li.textContent = name;
+
+                studentList.appendChild(li);
+
+                conversations[name] = []; // Initialize empty conversation
+
+                newStudentName.value = "";
+
+                attachStudentClickEvents();
+            });
+
+            // Send message
+            sendBtn.addEventListener("click", function () {
+                const text = chatInput.value.trim();
+                if (text === "" || !currentStudent) return;
+
+                const formatted = "You: " + text;
+                conversations[currentStudent].push(formatted);
+
+                addMessageBubble(formatted);
+
+                chatInput.value = "";
+            });
+
+        });
+    </script>
 
 </body>
 </html>

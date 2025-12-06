@@ -10,52 +10,77 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="index.html">StudyBuddy</a>
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">StudyBuddy</a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navMenu">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
-                <li class="nav-item"><a class="nav-link active" href="scheduling.html">Scheduling</a></li>
-                <li class="nav-item"><a class="nav-link btn btn-dark text-white ms-2" href="chat.html">Chat</a></li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="scheduling.html">Scheduling</a></li>
+                    <li class="nav-item"><a class="nav-link" href="chat.html">Chat</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="container mt-5">
+        <h1 class="fw-bold">Scheduling</h1>
+
+        <div class="mt-4">
+            <h4>ENG 101</h4>
+            <p><strong>Exam:</strong> Early American History Assessment</p>
+            <p><strong>Exam Date:</strong> Monday, October 8</p>
+            <p><strong>Study Session:</strong> Sunday, October 7 at 3 PM</p>
+            <p><strong>Location:</strong> Dale Hall Room 312</p>
+
+            <button class="btn btn-success mt-3" id="scheduleEng101Btn">Schedule Event</button>
+            <hr>
+
+            <h4>MIS 212</h4>
+            <p><strong>Exam:</strong> Introduction to Information Systems Midterm</p>
+            <p><strong>Exam Date:</strong> Monday, October 15</p>
+            <p><strong>Study Session:</strong> Sunday, October 14 at 4 PM</p>
+            <p><strong>Location:</strong> Price Hall Room 203</p>
+
+            <button class="btn btn-success mt-3" id="scheduleMis212Btn">Schedule Event</button>
         </div>
     </div>
-</nav>
 
-<!-- CONTENT -->
-<div class="container mt-5">
-    <h1 class="fw-bold">Scheduling</h1>
+    <!-- FOOTER -->
+    <footer>
+        <p class="fw-bold">Classmates © 2020–2025</p>
+        <p>Helping students connect, collaborate, and succeed.</p>
+    </footer>
 
-    <div class="mt-4">
-        <h4>ENG 101</h4>
-        <p><strong>Exam:</strong> Early American History Assessment</p>
-        <p><strong>Exam Date:</strong> Monday, October 8</p>
-        <p><strong>Study Session:</strong> Sunday, October 7 at 3 PM</p>
-        <p><strong>Location:</strong> Dale Hall Room 312</p>
-        <hr>
+    <!-- Script to handle popups for each button -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function showSchedulePopup(courseName) {
+                alert("Your " + courseName + " event has been successfully scheduled!");
+            }
 
-        <h4>MIS 212</h4>
-        <p><strong>Exam:</strong> Introduction to Information Systems Midterm</p>
-        <p><strong>Exam Date:</strong> Monday, October 15</p>
-        <p><strong>Study Session:</strong> Sunday, October 14 at 4 PM</p>
-        <p><strong>Location:</strong> Price Hall Room 203</p>
+            var engBtn = document.getElementById('scheduleEng101Btn');
+            if (engBtn) {
+                engBtn.addEventListener('click', function () {
+                    showSchedulePopup('ENG 101');
+                });
+            }
 
-        <button class="btn btn-success mt-3">Schedule Event</button>
-    </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-    <p class="fw-bold">Classmates © 2020–2025</p>
-    <p>Helping students connect, collaborate, and succeed.</p>
-</footer>
+            var misBtn = document.getElementById('scheduleMis212Btn');
+            if (misBtn) {
+                misBtn.addEventListener('click', function () {
+                    showSchedulePopup('MIS 212');
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
