@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings – ClassMates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- DARK MODE CSS - Only for settings.html -->
+    <style>
+        body.dark-mode {
+            background-color: #121212 !important;
+            color: #ffffff !important;
+        }
+
+            /* Make all headings white */
+            body.dark-mode h1,
+            body.dark-mode h2,
+            body.dark-mode h3,
+            body.dark-mode h4,
+            body.dark-mode h5,
+            body.dark-mode h6 {
+                color: #ffffff !important;
+            }
+
+            /* Make all text inside cards white */
+            body.dark-mode .card,
+            body.dark-mode .card-title,
+            body.dark-mode .card-body,
+            body.dark-mode .card p,
+            body.dark-mode .card label {
+                color: #ffffff !important;
+                background-color: #1e1e1e !important;
+                border-color: #333 !important;
+            }
+
+            /* Form inputs */
+            body.dark-mode .form-control {
+                background-color: #2a2a2a !important;
+                color: #ffffff !important;
+                border-color: #555 !important;
+            }
+
+                /* Placeholder text in dark mode */
+                body.dark-mode .form-control::placeholder {
+                    color: #bbbbbb !important;
+                }
+
+            /* Navbar */
+            body.dark-mode .navbar {
+                background-color: #1a1a1a !important;
+                border-bottom: 1px solid #333 !important;
+            }
+
+            body.dark-mode .nav-link,
+            body.dark-mode .navbar-brand {
+                color: #ffffff !important;
+            }
+
+            /* Footer */
+            body.dark-mode footer {
+                background-color: #1a1a1a !important;
+                border-top: 1px solid #333 !important;
+                color: #ffffff !important;
+            }
+
+            /* Buttons stay colored but text is visible */
+            body.dark-mode .btn {
+                color: #ffffff !important;
+            }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">ClassMates</a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="scheduling.html">Scheduling</a></li>
+                    <li class="nav-item"><a class="nav-link" href="chat.html">Chat</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="settings.html">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SETTINGS PAGE -->
+    <div class="container mt-5 mb-5">
+
+        <h2 class="fw-bold mb-4 text-center">Settings</h2>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h4 class="card-title mb-3">College Account</h4>
+                <p class="text-muted">Connect your college login to sync class schedules, access resources, and authenticate your identity.</p>
+
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">College Email</label>
+                        <input type="email" class="form-control" placeholder="you@college.edu">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Enter your college password">
+                    </div>
+
+                    <button class="btn btn-primary">Connect College Account</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Connect Canvas</h4>
+                <p class="text-muted">Link your Canvas LMS account to automatically sync courses, assignments, and due dates.</p>
+
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Canvas Username</label>
+                        <input type="text" class="form-control" placeholder="Canvas username">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Canvas Password</label>
+                        <input type="password" class="form-control" placeholder="Canvas password">
+                    </div>
+
+                    <button class="btn btn-success">Connect Canvas</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Preferences -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Preferences</h4>
+
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" id="notifSwitch" checked>
+                    <label class="form-check-label" for="notifSwitch">Enable Notifications</label>
+                </div>
+
+                <!-- DARK MODE TOGGLE -->
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                    <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+                </div>
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="studyAlertsSwitch" checked>
+                    <label class="form-check-label" for="studyAlertsSwitch">Study Session Alerts</label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load saved theme
+        const darkModeSaved = localStorage.getItem("settings_darkmode") === "true";
+        const darkModeSwitch = document.getElementById("darkModeSwitch");
+
+        if (darkModeSaved) {
+            document.body.classList.add("dark-mode");
+            darkModeSwitch.checked = true;
+        }
+
+        // Toggle dark mode
+        darkModeSwitch.addEventListener("change", () => {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("settings_darkmode", darkModeSwitch.checked);
+        });
+    </script>
+
+</body>
+</html>
